@@ -277,11 +277,18 @@ class DescribeRestStage(query.ChildDescribeSource):
         query.capture_parent_id = True
         return query
 
+    def get_parent_type(self, parent_id):
+        client = utils.local_session(
+            self.manager.session_factory).client('apigateway')
+        return client.get_rest_api(restApiId=parent_id).get(
+            'endpointConfiguration', {}).get('types', [])
+
     def augment(self, resources):
         results = []
         # Using capture parent, changes the protocol
         for parent_id, r in resources:
             r['restApiId'] = parent_id
+            r['restApiType'] = self.get_parent_type(parent_id)
             r['stageArn'] = "arn:aws:{service}:{region}::" \
                             "/restapis/{rest_api_id}/stages/" \
                             "{stage_name}".format(
