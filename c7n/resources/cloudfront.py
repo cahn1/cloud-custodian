@@ -213,12 +213,12 @@ class IsWafV2Enabled(Filter):
             if state:
                 if not target_acl and r_web_acl_id in target_acl_ids:
                     results.append(r)
-                elif target_acl and r_web_acl_id in target_acl_ids:
+                elif r_web_acl_id in target_acl_ids:
                     results.append(r)
             else:
                 if not target_acl and r_web_acl_id not in target_acl_ids:
                     results.append(r)
-                elif target_acl and r_web_acl_id not in target_acl_ids:
+                elif r_web_acl_id not in target_acl_ids:
                     results.append(r)
         return results
 
