@@ -7,9 +7,9 @@ env:
 
 on:
   workflow_dispatch: {}
-  schedule:
+  #schedule:
     # UTC 6 AM aka 11 PM PST, 2 AM EST, everyday
-    - cron: "0 6 * * *"
+    #- cron: "0 6 * * *"
 
 jobs:
   AWS:
